@@ -178,6 +178,13 @@ func remove_item(item_name: String, quantity: int = 1) -> bool:
 func take_damage(amount: float, damage_type: String = "physical") -> void:
 	health -= amount
 	
+	# Play damage sound and effect
+	if game_manager and game_manager.sound_effects_system:
+		game_manager.sound_effects_system.play_sound("combat", "sword_hit", -5.0, 1.0, true, global_position)
+	
+	if game_manager and game_manager.visual_effects_system:
+		game_manager.visual_effects_system.play_effect("blood", global_position, 2.0)
+	
 	# Different damage types
 	match damage_type:
 		"infection":
@@ -193,6 +200,13 @@ func take_damage(amount: float, damage_type: String = "physical") -> void:
 ## Heal player
 func heal(amount: float) -> void:
 	health = min(100, health + amount)
+	
+	# Play heal sound and effect
+	if game_manager and game_manager.sound_effects_system:
+		game_manager.sound_effects_system.play_sound("items", "heal", -10.0, 1.0, true, global_position)
+	
+	if game_manager and game_manager.visual_effects_system:
+		game_manager.visual_effects_system.play_effect("heal", global_position, 1.5)
 
 ## Consume food
 func consume_food(food_name: String, hunger_restore: float = 30.0, thirst_restore: float = 5.0) -> void:

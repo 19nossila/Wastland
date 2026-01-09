@@ -33,6 +33,10 @@ var fbx_converter: FBXConverter
 var material_manager: MaterialManager
 var world_builder: WorldBuilder
 
+# Audio and Visual systems
+var sound_effects_system: SoundEffectsSystem
+var visual_effects_system: VisualEffectsSystem
+
 # Player reference
 var player: PlayerCharacter_v2
 var zombies: Array = []
@@ -52,6 +56,7 @@ func _ready():
 	print("🎮 Game Manager v2 initializing...")
 	
 	_initialize_asset_systems()
+	_initialize_audio_visual_systems()
 	_initialize_gameplay_systems()
 	_load_configuration()
 	_build_world()
@@ -71,6 +76,21 @@ func _initialize_asset_systems() -> void:
 	add_child(material_manager)
 	
 	print("✅ Asset systems ready")
+
+## Initialize audio and visual systems
+func _initialize_audio_visual_systems() -> void:
+	print("🔊 Initializing audio and visual systems...")
+	
+	sound_effects_system = SoundEffectsSystem.new()
+	add_child(sound_effects_system)
+	
+	visual_effects_system = VisualEffectsSystem.new()
+	add_child(visual_effects_system)
+	
+	# Play background music
+	sound_effects_system.play_background_music("background_forest", -15.0)
+	
+	print("✅ Audio and visual systems ready")
 
 ## Initialize gameplay systems
 func _initialize_gameplay_systems() -> void:

@@ -131,6 +131,16 @@ func _attack_target() -> void:
 	if target and is_instance_valid(target) and "take_damage" in target:
 		target.take_damage(10.0, "infection")
 		_play_animation("attack")
+		
+		# Play attack sound
+		var game_manager = get_tree().root.get_child(0).get_node_or_null("GameManager")
+		if game_manager and game_manager.sound_effects_system:
+			game_manager.sound_effects_system.play_sound("combat", "zombie_attack", -5.0, 1.0, true, global_position)
+		
+		# Play impact effect
+		if game_manager and game_manager.visual_effects_system:
+			game_manager.visual_effects_system.play_effect("impact", target.global_position, 0.5)
+		
 		print("💀 Zombie attacking player!")
 
 ## Patrol around spawn point
@@ -169,12 +179,30 @@ func take_damage(amount: float) -> void:
 	health -= amount
 	print("💢 Zombie hit! Health: %.1f" % health)
 	
+	# Play impact sound and effect
+	var game_manager = get_tree().root.get_child(0).get_node_or_null("GameManager")
+	if game_manager and game_manager.sound_effects_system:
+		game_manager.sound_effects_system.play_sound("combat", "sword_hit", -5.0, 1.0, true, global_position)
+	
+	if game_manager and game_manager.visual_effects_system:
+		game_manager.visual_effects_system.play_effect("blood", global_position, 2.0)
+	
 	if health <= 0:
 		die()
 
 ## Die
 func die() -> void:
 	print("☠️ Zombie died!")
+	
+	# Play death sound
+	var game_manager = get_tree().root.get_child(0).get_node_or_null("GameManager")
+	if game_manager and game_manager.sound_effects_system:
+		game_manager.sound_effects_system.play_enemy_death_sound("zombie", global_position)
+	
+	# Play death effect
+	if game_manager and game_manager.visual_effects_system:
+		game_manager.visual_effects_system.play_effect("blood", global_position, 2.0)
+	
 	queue_free()
 
 ## Infect player
