@@ -1,0 +1,78 @@
+[gd_project]
+
+config_version=5
+
+_global_script_classes=[{
+"base": "CharacterBody3D",
+"class": &"PlayerCharacter",
+"language": &"GDScript",
+"path": "res://scripts/player/PlayerCharacter.gd"
+}, {
+"base": "CharacterBody3D",
+"class": &"ZombieAI",
+"language": &"GDScript",
+"path": "res://scripts/ai/ZombieAI.gd"
+}, {
+"base": "Node",
+"class": &"GameManager",
+"language": &"GDScript",
+"path": "res://scripts/managers/GameManager.gd"
+}, {
+"base": "Node",
+"class": &"MutationSystem",
+"language": &"GDScript",
+"path": "res://scripts/systems/MutationSystem.gd"
+}, {
+"base": "Node",
+"class": &"FactionSystem",
+"language": &"GDScript",
+"path": "res://scripts/systems/FactionSystem.gd"
+}, {
+"base": "Node",
+"class": &"WeatherSystem",
+"language": &"GDScript",
+"path": "res://scripts/systems/WeatherSystem.gd"
+}, {
+"base": "Node",
+"class": &"DroneSystem",
+"language": &"GDScript",
+"path": "res://scripts/systems/DroneSystem.gd"
+}]
+
+_global_script_class_icons={
+"DroneSystem": "",
+"FactionSystem": "",
+"GameManager": "",
+"MutationSystem": "",
+"PlayerCharacter": "",
+"WeatherSystem": "",
+"ZombieAI": ""
+}
+
+[application]
+
+config/name="Reborn Wastland"
+config/description="A low-end optimized 3D survival multiplayer game inspired by Unturned with unique mechanics"
+run/main_scene="res://scenes/main/Main.tscn"
+config/features=PackedStringArray("4.2")
+config/icon="res://assets/icon.svg"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+global_illumination/sdfgi/enabled=false
+lights_and_shadows/directional_shadow/size=1024
+textures/default_filters/use_nearest=true
+textures/default_filters/anisotropic_filtering_level=1
+anti_aliasing/screen_space_roughness_limiter/enabled=false
+
+[physics]
+
+3d/default_gravity=9.8
+
+[display]
+
+window/size/viewport_width=1024
+window/size/viewport_height=768
+window/vsync_mode=0
+window/size/resizable=true

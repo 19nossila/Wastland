@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8xnuhqo21kgdq"]
+
+[ext_resource type="Script" path="res://scripts/player/PlayerCharacter.gd"]
+[ext_resource type="Script" path="res://scripts/managers/InputManager.gd"]
+
+[sub_resource type="CapsuleShape3D" id="1"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="CameraAttributes" id="2"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("1")
+
+[node name="Head" type="Node3D" parent="."]
+position = Vector3(0, 0.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+attributes = SubResource("2")
+fov = 90.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+enabled = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+position = Vector3(0, 0.3, 0)
+max_db = 0.0
+max_distance = 100.0
+attenuation_model = 1
+
+[node name="InputManager" type="Node" parent="."]
+script = ExtResource("2")
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="UI" type="Control" parent="HUDLayer"]
+layout_mode = 3
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+
+[node name="HealthBar" type="ProgressBar" parent="HUDLayer/UI"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 50.0
+value = 100.0
+show_percentage = true
+
+[node name="MutationStatus" type="Label" parent="HUDLayer/UI"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 400.0
+offset_bottom = 100.0
+text = "Mutations: None"
+
+[node name="Stats" type="Label" parent="HUDLayer/UI"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 110.0
+offset_right = 400.0
+offset_bottom = 150.0
+text = "Hunger: 100 | Thirst: 100"
+
+[node name="Notifications" type="VBoxContainer" parent="HUDLayer/UI"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 200.0
+offset_right = 600.0
+offset_bottom = 400.0
